@@ -6,11 +6,11 @@ const router = Router();
 router.get("/", async (req, res) => {
 	 try {
         const result = await pool.query(
-            `SELECT users_id AS id, 
+            `SELECT id,
 	     username,
 	     created_at AS "CreatedAT"
   	     FROM users
-	     ORDER BY users_id ASC`
+	     ORDER BY id ASC`
         );
 
         res.json(result.rows);
