@@ -8,7 +8,8 @@
     "db-test": "node ./src/db/db.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "sauce": "psql -U sauce -d sauce -h localhost"
   },
   "keywords": [],
   "author": "",
