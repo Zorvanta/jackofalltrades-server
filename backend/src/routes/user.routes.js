@@ -1,23 +1,8 @@
 import { Router } from "express";
-import pool from "../db/db.js";
+import { createUser } from "../controllers/users.controller.js";
 
 const router = Router();
 
-router.get("/", async (req, res) => {
-	 try {
-        const result = await pool.query(
-            `SELECT id,
-	     username,
-	     created_at AS "CreatedAT"
-  	     FROM users
-	     ORDER BY id ASC`
-        );
+router.post("/", createUser);
 
-        res.json(result.rows);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: err.message });
-    }
-
-});
 export default router;
