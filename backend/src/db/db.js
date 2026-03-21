@@ -19,7 +19,6 @@ const pool = new Pool({
 	password: process.env.PGPASSWORD,
 
 });
-console.log("PGPASSWORD:", process.env.PGPASSWORD);
 async function testConnection() {
   try {
     // Run a simple query

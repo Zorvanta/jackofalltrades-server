@@ -1,11 +1,9 @@
 BEGIN;
 
 --USERS (insert username, insert created_at)
-INSERT INTO users (username, created_at)
+INSERT INTO users (username, created_at, email, password_hash)
 VALUES
-  ('Austin', NOW()),
-  ('David', NOW()),
-  ('Keeanu', NOW())
+  ('Austin', NOW(), 'test@test.com', 'test')
 ON CONFLICT DO NOTHING;
 
 --SKILLS (name)
