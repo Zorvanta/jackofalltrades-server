@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import { createUserQuery } from "../queries/users.queries.js"
 import { findUserByUsername } from "../queries/users.queries.js";
 //controller function for creating a user
 export async function createUser(req,res){
@@ -27,9 +28,16 @@ const saltRounds = 10;
 			error: "internal server error"
 		});
 	}
-//hash password
-const passwordHash = await bcrypt.hash(password, saltRounds);
-console.log(password);
-console.log(passwordHash);
-return res.status(200);
+//hash password and store new user in database
+	try{
+		const passwordHash = await bcrypt.hash(password, saltRounds);
+		const newUserResult = await createUserQuery(email, username, passwordHash);
+		console.log("NEW USER:", newUserResult.rows[0]);
+		return res.status(201).json({ message: "user created"});
+	}catch(error){
+		console.error("Error creating user: ", error);
+		return res.status(500).json({
+			error: "Storing credentials error"
+		});
+	}
 }
