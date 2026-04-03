@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
-import { createUserQuery } from "../queries/users.queries.js"
+           import { createUserQuery } from "../queries/users.queries.js";
 import { findUserByUsername } from "../queries/users.queries.js";
+import { findEmailbyEmail } from "../queries/users.queries.js";
+
 //controller function for creating a user
 export async function createUser(req,res){
 const { email, username, password } = req.body;
@@ -24,6 +26,20 @@ const saltRounds = 10;
 	} catch (error) {
 		console.error("Error checking username:", error);
 		
+		return res.status(500).json({
+			error: "internal server error"
+		});
+	}
+	try{
+	const existingEmail = await findEmailbyEmail(email);
+
+		if (existingEmail.rowCount > 0){
+			return res.status(409).json({
+		 		error: "email is already in use"
+			});
+		}
+	} catch (error) {
+		console.error("Error checking email:", error);
 		return res.status(500).json({
 			error: "internal server error"
 		});
