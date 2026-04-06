@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-           import { createUserQuery } from "../queries/users.queries.js";
+import { createUserQuery } from "../queries/users.queries.js";
 import { findUserByUsername } from "../queries/users.queries.js";
 import { findEmailbyEmail } from "../queries/users.queries.js";
 
